@@ -1,8 +1,17 @@
 :root {
+    /* Color Palette */
     --bg-color: #111111;
-    --text-color: #eeeeee;
-    --accent-color: #00bcd4; /* Cyan-ish for that terminal pop */
+    --text-color: #e0e0e0;
+
+    /* Muted Pastels */
+    --accent-pink: #d4a5a5;
+    --accent-mint: #a5d4af;
+    --accent-lavender: #b5a5d4;
+
+    --border-color: #333333;
+
     --font-stack: 'Courier New', Courier, monospace;
+    --container-width: 680px;
 }
 
 *, *::before, *::after {
@@ -16,39 +25,61 @@ body {
     color: var(--text-color);
     font-family: var(--font-stack);
     line-height: 1.6;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+
+    /* Noise Texture */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* Brutalist Layout Container */
+.layout-container {
+    width: 100%;
+    max-width: var(--container-width);
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(17, 17, 17, 0.8); /* Slight overlay on noise if needed, or just transparent */
 }
 
 header {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding: 0 1rem;
+    text-align: left;
+    padding: 2rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     margin: 0 0 0.5rem 0;
     letter-spacing: -1px;
+    color: var(--text-color);
 }
 
 .subtitle {
-    font-size: 1.1rem;
-    color: var(--accent-color);
+    font-size: 1rem;
+    color: var(--accent-pink);
     margin: 0;
-    opacity: 0.9;
+    font-weight: 400;
+}
+
+nav {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
 }
 
 .social-links {
     display: flex;
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: 1.5rem;
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .social-links li {
@@ -58,30 +89,62 @@ h1 {
 .social-links a {
     display: block;
     color: var(--text-color);
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: color 0.2s ease;
 }
 
 .social-links a:hover {
-    color: var(--accent-color);
-    transform: translateY(-3px);
+    color: var(--accent-mint);
 }
 
+.social-links a[aria-label="Bluesky"]:hover { color: var(--accent-mint); }
+.social-links a[aria-label="LinkedIn"]:hover { color: var(--accent-lavender); }
+.social-links a[aria-label="Instagram"]:hover { color: var(--accent-pink); }
+.social-links a[aria-label="Email"]:hover { color: var(--text-color); opacity: 0.8; }
+
+
 .social-icon {
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
     fill: currentColor;
 }
 
 main {
-    /* Placeholder for future blog content */
-    width: 100%;
-    max-width: 700px;
-    padding: 0 1rem;
+    padding: 2rem;
+    flex: 1; /* Pushes footer down */
+}
+
+/* Placeholder text styling */
+main p {
+    color: #666;
+    font-style: italic;
 }
 
 footer {
-    margin-top: auto;
-    padding: 2rem;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border-color);
     font-size: 0.8rem;
-    opacity: 0.4;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Scrollbar styling for that extra touch */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+@media (max-width: 700px) {
+    .layout-container {
+        border-left: none;
+        border-right: none;
+    }
 }
