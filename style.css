@@ -1,17 +1,18 @@
 :root {
-    /* Color Palette */
-    --bg-color: #111111;
-    --text-color: #e0e0e0;
+    /* Base Colors */
+    --bg-color: #0a0a0a;
+    --text-color: #f0f0f0;
+    --border-color: #333333;
 
-    /* Muted Pastels */
+    /* Muted Pastels (Used sparingly for accents) */
     --accent-pink: #d4a5a5;
     --accent-mint: #a5d4af;
     --accent-lavender: #b5a5d4;
 
-    --border-color: #333333;
+    /* Fonts */
+    --font-stack: 'Roboto Mono', 'Courier New', monospace;
 
-    --font-stack: 'Courier New', Courier, monospace;
-    --container-width: 680px;
+    --container-width: 720px;
 }
 
 *, *::before, *::after {
@@ -22,6 +23,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--bg-color);
+    /* Subtle radial gradient for "High-End Terminal" vibe */
+    background-image: radial-gradient(circle at 50% 30%, #1a1a1a 0%, #0a0a0a 70%);
     color: var(--text-color);
     font-family: var(--font-stack);
     line-height: 1.6;
@@ -29,54 +32,50 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    /* Noise Texture */
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    justify-content: center; /* Center content vertically like a hero section */
 }
 
-/* Brutalist Layout Container */
+/* Layout Container - Cleaner, less "boxed in" than before */
 .layout-container {
     width: 100%;
     max-width: var(--container-width);
-    border-left: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
-    min-height: 100vh;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    background-color: rgba(17, 17, 17, 0.8); /* Slight overlay on noise if needed, or just transparent */
+    gap: 3rem; /* Space out sections (Verge style spacing) */
 }
 
 header {
     text-align: left;
-    padding: 2rem;
-    border-bottom: 1px solid var(--border-color);
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: 3rem; /* Bold, Large (Lando Style) */
     font-weight: 700;
     margin: 0 0 0.5rem 0;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
     color: var(--text-color);
+    line-height: 1.1;
 }
 
 .subtitle {
     font-size: 1rem;
-    color: var(--accent-pink);
+    color: #666; /* Subtler than pastel */
     margin: 0;
-    font-weight: 400;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
+/* Navigation - Minimalist */
 nav {
-    border-bottom: 1px solid var(--border-color);
-    padding: 1rem 2rem;
     display: flex;
     align-items: center;
 }
 
 .social-links {
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -88,63 +87,64 @@ nav {
 
 .social-links a {
     display: block;
-    color: var(--text-color);
-    transition: color 0.2s ease;
+    color: #888; /* Dimmed by default */
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.social-links a:hover {
-    color: var(--accent-mint);
-}
-
-.social-links a[aria-label="Bluesky"]:hover { color: var(--accent-mint); }
-.social-links a[aria-label="LinkedIn"]:hover { color: var(--accent-lavender); }
-.social-links a[aria-label="Instagram"]:hover { color: var(--accent-pink); }
-.social-links a[aria-label="Email"]:hover { color: var(--text-color); opacity: 0.8; }
+/* Hover effects bring in the pastel colors */
+.social-links a[aria-label="Bluesky"]:hover { color: var(--accent-mint); transform: translateY(-2px); }
+.social-links a[aria-label="LinkedIn"]:hover { color: var(--accent-lavender); transform: translateY(-2px); }
+.social-links a[aria-label="Instagram"]:hover { color: var(--accent-pink); transform: translateY(-2px); }
+.social-links a[aria-label="Email"]:hover { color: var(--text-color); transform: translateY(-2px); }
 
 
 .social-icon {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     fill: currentColor;
 }
 
 main {
-    padding: 2rem;
-    flex: 1; /* Pushes footer down */
+    /* Empty for now, but ready */
 }
 
-/* Placeholder text styling */
-main p {
-    color: #666;
-    font-style: italic;
+.placeholder-text {
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: 700;
+    opacity: 0.5;
 }
 
 footer {
-    padding: 1.5rem 2rem;
-    border-top: 1px solid var(--border-color);
-    font-size: 0.8rem;
-    color: #666;
-    display: flex;
-    justify-content: space-between;
+    margin-top: auto;
+    font-size: 0.75rem;
+    color: #444;
+    text-align: left;
+    border-top: 1px solid #222; /* Very subtle divider */
+    padding-top: 1rem;
 }
 
-/* Scrollbar styling for that extra touch */
+/* Scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 ::-webkit-scrollbar-track {
     background: var(--bg-color);
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--border-color);
+    background: #333;
+    border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2.2rem;
+    }
     .layout-container {
-        border-left: none;
-        border-right: none;
+        padding: 1.5rem;
+        gap: 2rem;
     }
 }
