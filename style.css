@@ -1,18 +1,17 @@
 :root {
-    /* Base Colors */
-    --bg-color: #0a0a0a;
-    --text-color: #f0f0f0;
-    --border-color: #333333;
+    /* Color Palette */
+    --bg-color: #111111;
+    --text-color: #e0e0e0;
 
-    /* Muted Pastels (Used sparingly for accents) */
+    /* Muted Pastels */
     --accent-pink: #d4a5a5;
     --accent-mint: #a5d4af;
     --accent-lavender: #b5a5d4;
 
-    /* Fonts */
-    --font-stack: 'Roboto Mono', 'Courier New', monospace;
+    --border-color: #333333;
 
-    --container-width: 720px;
+    --font-stack: 'Courier New', Courier, monospace;
+    --container-width: 680px;
 }
 
 *, *::before, *::after {
@@ -32,50 +31,54 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Center content vertically like a hero section */
+
+    /* Noise Texture */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
-/* Layout Container - Cleaner, less "boxed in" than before */
+/* Brutalist Layout Container */
 .layout-container {
     width: 100%;
     max-width: var(--container-width);
-    padding: 2rem;
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 3rem; /* Space out sections (Verge style spacing) */
+    background-color: rgba(17, 17, 17, 0.8); /* Slight overlay on noise if needed, or just transparent */
 }
 
 header {
     text-align: left;
+    padding: 2rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
 h1 {
-    font-size: 3rem; /* Bold, Large (Lando Style) */
+    font-size: 2rem;
     font-weight: 700;
     margin: 0 0 0.5rem 0;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
     color: var(--text-color);
-    line-height: 1.1;
 }
 
 .subtitle {
     font-size: 1rem;
-    color: #666; /* Subtler than pastel */
+    color: var(--accent-pink);
     margin: 0;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-weight: 400;
 }
 
-/* Navigation - Minimalist */
 nav {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
     display: flex;
     align-items: center;
 }
 
 .social-links {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -87,64 +90,63 @@ nav {
 
 .social-links a {
     display: block;
-    color: #888; /* Dimmed by default */
-    transition: color 0.3s ease, transform 0.3s ease;
+    color: var(--text-color);
+    transition: color 0.2s ease;
 }
 
-/* Hover effects bring in the pastel colors */
-.social-links a[aria-label="Bluesky"]:hover { color: var(--accent-mint); transform: translateY(-2px); }
-.social-links a[aria-label="LinkedIn"]:hover { color: var(--accent-lavender); transform: translateY(-2px); }
-.social-links a[aria-label="Instagram"]:hover { color: var(--accent-pink); transform: translateY(-2px); }
-.social-links a[aria-label="Email"]:hover { color: var(--text-color); transform: translateY(-2px); }
+.social-links a:hover {
+    color: var(--accent-mint);
+}
+
+.social-links a[aria-label="Bluesky"]:hover { color: var(--accent-mint); }
+.social-links a[aria-label="LinkedIn"]:hover { color: var(--accent-lavender); }
+.social-links a[aria-label="Instagram"]:hover { color: var(--accent-pink); }
+.social-links a[aria-label="Email"]:hover { color: var(--text-color); opacity: 0.8; }
 
 
 .social-icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     fill: currentColor;
 }
 
 main {
-    /* Empty for now, but ready */
+    padding: 2rem;
+    flex: 1; /* Pushes footer down */
 }
 
-.placeholder-text {
-    color: #333;
-    font-size: 1.5rem;
-    font-weight: 700;
-    opacity: 0.5;
+/* Placeholder text styling */
+main p {
+    color: #666;
+    font-style: italic;
 }
 
 footer {
-    margin-top: auto;
-    font-size: 0.75rem;
-    color: #444;
-    text-align: left;
-    border-top: 1px solid #222; /* Very subtle divider */
-    padding-top: 1rem;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.8rem;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
 }
 
-/* Scrollbar */
+/* Scrollbar styling for that extra touch */
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 ::-webkit-scrollbar-track {
     background: var(--bg-color);
 }
 ::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 3px;
+    background: var(--border-color);
 }
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
-@media (max-width: 600px) {
-    h1 {
-        font-size: 2.2rem;
-    }
+@media (max-width: 700px) {
     .layout-container {
-        padding: 1.5rem;
-        gap: 2rem;
+        border-left: none;
+        border-right: none;
     }
 }
