@@ -1,18 +1,19 @@
 :root {
-    /* Base Colors */
-    --bg-color: #0a0a0a;
-    --text-color: #f0f0f0;
-    --border-color: #333333;
+    /* Colors */
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --dim-text: #888888;
+    --grid-line: #333333;
 
-    /* Muted Pastels (Used sparingly for accents) */
-    --accent-pink: #d4a5a5;
-    --accent-mint: #a5d4af;
-    --accent-lavender: #b5a5d4;
+    /* Accent: Hot Pink / Neon */
+    --accent-color: #FF10F0;
 
-    /* Fonts */
-    --font-stack: 'Roboto Mono', 'Courier New', monospace;
+    /* Typography */
+    --font-stack: 'Roboto Mono', monospace;
 
+    /* Layout */
     --container-width: 720px;
+    --grid-gap: 1px; /* Used for the border look if using gap+bg technique, or just 0 for borders */
 }
 
 *, *::before, *::after {
@@ -21,130 +22,191 @@
 
 body {
     margin: 0;
-    padding: 0;
+    padding: 2rem;
     background-color: var(--bg-color);
-    /* Subtle radial gradient for "High-End Terminal" vibe */
-    background-image: radial-gradient(circle at 50% 30%, #1a1a1a 0%, #0a0a0a 70%);
     color: var(--text-color);
     font-family: var(--font-stack);
-    line-height: 1.6;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Center content vertically like a hero section */
+    justify-content: center;
 }
 
-/* Layout Container - Cleaner, less "boxed in" than before */
-.layout-container {
+/* The Main Grid Container */
+.grid-wrapper {
     width: 100%;
     max-width: var(--container-width);
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 3rem; /* Space out sections (Verge style spacing) */
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid var(--grid-line);
+    background-color: var(--bg-color); /* Ensures content covers any underlying stuff */
 }
 
-header {
-    text-align: left;
+/* Grid Items General Styling */
+.grid-header,
+.grid-subtitle,
+.grid-nav,
+.grid-content,
+.grid-footer {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--grid-line);
+}
+
+.grid-footer {
+    border-bottom: none;
+}
+
+/* Header: Bold, Aggressive */
+.grid-header {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
 h1 {
-    font-size: 3rem; /* Bold, Large (Lando Style) */
+    font-size: 3.5rem;
     font-weight: 700;
-    margin: 0 0 0.5rem 0;
+    margin: 0;
+    line-height: 0.9;
     letter-spacing: -2px;
-    color: var(--text-color);
-    line-height: 1.1;
+    text-transform: lowercase; /* or uppercase, keeping it consistent with "ffschrattenecker" brand */
+}
+
+/* Subtitle: Academic, Precise */
+.grid-subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .subtitle {
-    font-size: 1rem;
-    color: #666; /* Subtler than pastel */
     margin: 0;
-    font-weight: 300;
+    font-size: 0.9rem;
+    color: var(--dim-text);
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-/* Navigation - Minimalist */
-nav {
-    display: flex;
-    align-items: center;
+/* Navigation: Typography as UI */
+.grid-nav {
+    padding: 0; /* Remove padding to let links fill the space */
 }
 
 .social-links {
-    display: flex;
-    gap: 2rem;
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Grid of links */
 }
 
 .social-links li {
-    display: flex;
+    border-right: 1px solid var(--grid-line);
+}
+
+.social-links li:last-child {
+    border-right: none;
 }
 
 .social-links a {
-    display: block;
-    color: #888; /* Dimmed by default */
-    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Text left, Icon right */
+    padding: 1.5rem 2rem;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 400;
+    font-size: 1rem;
+    transition: all 0.1s steps(2); /* Steps for a digital/retro feel */
 }
 
-/* Hover effects bring in the pastel colors */
-.social-links a[aria-label="Bluesky"]:hover { color: var(--accent-mint); transform: translateY(-2px); }
-.social-links a[aria-label="LinkedIn"]:hover { color: var(--accent-lavender); transform: translateY(-2px); }
-.social-links a[aria-label="Instagram"]:hover { color: var(--accent-pink); transform: translateY(-2px); }
-.social-links a[aria-label="Email"]:hover { color: var(--text-color); transform: translateY(-2px); }
-
+.link-text {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
 .social-icon {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
+    width: 20px;
+    height: 20px;
+    fill: var(--text-color);
+    transition: fill 0.1s steps(2);
+    opacity: 0; /* Hidden by default, clean typography look? Or visible? */
+    /* Let's keep them visible but subtle, or hide until hover for "Typography as UI" */
+    opacity: 1;
 }
 
-main {
-    /* Empty for now, but ready */
+/* Hover Effects: Aggressive, Neon, Glitchy */
+.social-links a:hover {
+    background-color: var(--text-color); /* Invert colors? Or just text color? */
+    background-color: transparent;
+    color: var(--accent-color);
+
+    /* Text Shadow Glitch */
+    text-shadow: 2px 2px 0px rgba(255, 0, 255, 0.4), -1px -1px 0px rgba(0, 255, 255, 0.4);
+}
+
+.social-links a:hover .social-icon {
+    fill: var(--accent-color);
+    filter: drop-shadow(2px 2px 0px rgba(255, 0, 255, 0.4));
+}
+
+/* Content Placeholder */
+.grid-content {
+    min-height: 200px; /* Give it some vertical space to breathe */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .placeholder-text {
-    color: #333;
-    font-size: 1.5rem;
+    opacity: 0.1;
+    font-size: 4rem;
+    margin: 0;
     font-weight: 700;
-    opacity: 0.5;
+    color: var(--grid-line);
 }
 
-footer {
-    margin-top: auto;
+/* Footer */
+.grid-footer {
     font-size: 0.75rem;
-    color: #444;
-    text-align: left;
-    border-top: 1px solid #222; /* Very subtle divider */
-    padding-top: 1rem;
+    color: var(--dim-text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: space-between;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-    width: 6px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-color);
-}
-::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
+/* Responsive adjustments */
 @media (max-width: 600px) {
-    h1 {
-        font-size: 2.2rem;
+    body {
+        padding: 0; /* Full width on mobile */
+        align-items: stretch;
     }
-    .layout-container {
-        padding: 1.5rem;
-        gap: 2rem;
+
+    .grid-wrapper {
+        border-left: none;
+        border-right: none;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    h1 {
+        font-size: 2.5rem; /* Smaller on mobile */
+        word-break: break-all; /* Ensure long name fits */
+    }
+
+    .social-links {
+        grid-template-columns: 1fr; /* Stack vertically on mobile */
+    }
+
+    .social-links li {
+        border-right: none;
+        border-bottom: 1px solid var(--grid-line);
+    }
+
+    .social-links li:last-child {
+        border-bottom: none;
     }
 }
