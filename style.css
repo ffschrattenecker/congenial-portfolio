@@ -13,7 +13,6 @@
 
     /* Layout */
     --container-width: 720px;
-    --grid-gap: 1px; /* Used for the border look if using gap+bg technique, or just 0 for borders */
 }
 
 *, *::before, *::after {
@@ -22,7 +21,7 @@
 
 body {
     margin: 0;
-    padding: 2rem;
+    padding: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-stack);
@@ -33,52 +32,28 @@ body {
     justify-content: center;
 }
 
-/* The Main Grid Container */
-.grid-wrapper {
+/* Container */
+.layout-container {
     width: 100%;
     max-width: var(--container-width);
-    display: grid;
-    grid-template-columns: 1fr;
-    border: 1px solid var(--grid-line);
-    background-color: var(--bg-color); /* Ensures content covers any underlying stuff */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Reasonable spacing between elements */
 }
 
-/* Grid Items General Styling */
-.grid-header,
-.grid-subtitle,
-.grid-nav,
-.grid-content,
-.grid-footer {
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid var(--grid-line);
-}
-
-.grid-footer {
-    border-bottom: none;
-}
-
-/* Header: Bold, Aggressive */
-.grid-header {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+/* Header */
+header {
+    text-align: left;
 }
 
 h1 {
     font-size: 3.5rem;
     font-weight: 700;
-    margin: 0;
+    margin: 0 0 1rem 0; /* Add bottom margin to separate from subtitle */
     line-height: 0.9;
     letter-spacing: -2px;
-    text-transform: lowercase; /* or uppercase, keeping it consistent with "ffschrattenecker" brand */
-}
-
-/* Subtitle: Academic, Precise */
-.grid-subtitle {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    text-transform: lowercase;
 }
 
 .subtitle {
@@ -89,37 +64,36 @@ h1 {
     letter-spacing: 1px;
 }
 
-/* Navigation: Typography as UI */
-.grid-nav {
-    padding: 0; /* Remove padding to let links fill the space */
+/* Navigation */
+nav {
+    display: flex;
+    align-items: center;
 }
 
 .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* Spacing between buttons */
     list-style: none;
     padding: 0;
     margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Grid of links */
 }
 
 .social-links li {
-    border-right: 1px solid var(--grid-line);
-}
-
-.social-links li:last-child {
-    border-right: none;
+    display: flex;
 }
 
 .social-links a {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Text left, Icon right */
-    padding: 1.5rem 2rem;
+    gap: 0.75rem; /* Space between text and icon */
+    padding: 0.5rem 1rem;
     text-decoration: none;
     color: var(--text-color);
     font-weight: 400;
     font-size: 1rem;
-    transition: all 0.1s steps(2); /* Steps for a digital/retro feel */
+    border: 1px solid transparent; /* Prepare for potential border states */
+    transition: all 0.1s ease-out; /* Fast, crisp transition */
 }
 
 .link-text {
@@ -131,82 +105,66 @@ h1 {
     width: 20px;
     height: 20px;
     fill: var(--text-color);
-    transition: fill 0.1s steps(2);
-    opacity: 0; /* Hidden by default, clean typography look? Or visible? */
-    /* Let's keep them visible but subtle, or hide until hover for "Typography as UI" */
-    opacity: 1;
+    transition: fill 0.1s ease-out;
 }
 
-/* Hover Effects: Aggressive, Neon, Glitchy */
+/* Hover Effects: Bold, Digital, NOT Blurry */
 .social-links a:hover {
-    background-color: var(--text-color); /* Invert colors? Or just text color? */
-    background-color: transparent;
-    color: var(--accent-color);
-
-    /* Text Shadow Glitch */
-    text-shadow: 2px 2px 0px rgba(255, 0, 255, 0.4), -1px -1px 0px rgba(0, 255, 255, 0.4);
+    background-color: var(--accent-color); /* Neon Pink Background */
+    color: #000000; /* Black Text for max contrast */
+    transform: translateY(-2px); /* Slight lift */
+    box-shadow: 4px 4px 0 #000; /* Hard shadow for 'pop' */
 }
 
 .social-links a:hover .social-icon {
-    fill: var(--accent-color);
-    filter: drop-shadow(2px 2px 0px rgba(255, 0, 255, 0.4));
+    fill: #000000; /* Icon turns black */
 }
 
 /* Content Placeholder */
-.grid-content {
-    min-height: 200px; /* Give it some vertical space to breathe */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+main {
+    min-height: 100px;
 }
 
 .placeholder-text {
     opacity: 0.1;
-    font-size: 4rem;
+    font-size: 2rem;
     margin: 0;
     font-weight: 700;
-    color: var(--grid-line);
+    color: var(--dim-text);
 }
 
 /* Footer */
-.grid-footer {
+footer {
+    margin-top: auto;
     font-size: 0.75rem;
     color: var(--dim-text);
+    text-align: left;
+    border-top: 1px solid var(--grid-line); /* Simple line above copyright */
+    padding-top: 1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    display: flex;
-    justify-content: space-between;
 }
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-    body {
-        padding: 0; /* Full width on mobile */
-        align-items: stretch;
-    }
-
-    .grid-wrapper {
-        border-left: none;
-        border-right: none;
-        max-width: 100%;
-        margin: 0;
-    }
-
     h1 {
-        font-size: 2.5rem; /* Smaller on mobile */
-        word-break: break-all; /* Ensure long name fits */
+        font-size: 2.5rem;
+        word-break: break-all;
     }
 
     .social-links {
-        grid-template-columns: 1fr; /* Stack vertically on mobile */
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
     }
 
-    .social-links li {
-        border-right: none;
-        border-bottom: 1px solid var(--grid-line);
+    .social-links a {
+        padding: 0.5rem 0; /* Less padding on mobile to feel like a list */
+        width: 100%;
     }
 
-    .social-links li:last-child {
-        border-bottom: none;
+    .social-links a:hover {
+        padding-left: 0.5rem; /* Indent on hover */
+        box-shadow: none; /* No shadow on mobile */
     }
 }
