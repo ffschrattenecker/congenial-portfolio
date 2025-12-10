@@ -54,6 +54,9 @@ h1 {
     line-height: 0.9;
     letter-spacing: -2px;
     text-transform: lowercase;
+
+    /* Ensure no linebreaks and fluid scaling */
+    white-space: nowrap;
 }
 
 .subtitle {
@@ -145,26 +148,50 @@ footer {
     letter-spacing: 1px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
+/* Large Screens (Desktop) */
+@media (min-width: 1024px) {
+    .layout-container {
+        max-width: 1000px; /* Widen container for massive text */
+    }
+
     h1 {
-        font-size: 2.5rem;
-        word-break: break-all;
+        font-size: 5rem; /* Bigger on desktop */
+    }
+    .subtitle {
+        font-size: 1.2rem; /* Bigger on desktop */
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .layout-container {
+        padding: 1.5rem; /* Reduced padding for more space */
+    }
+
+    h1 {
+        /* Fluid typography to ensure it never breaks even on 320px */
+        /* 8.5vw ensures it fits within 320px - 2*1.5rem padding */
+        font-size: 8.5vw;
     }
 
     .social-links {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
+        align-items: stretch; /* Stretch to fill container */
+        gap: 1rem;
     }
 
     .social-links a {
-        padding: 0.5rem 0; /* Less padding on mobile to feel like a list */
+        padding: 0.75rem 0; /* More tappable area */
         width: 100%;
+        justify-content: center; /* Beautifully centered */
     }
 
     .social-links a:hover {
-        padding-left: 0.5rem; /* Indent on hover */
-        box-shadow: none; /* No shadow on mobile */
+        padding-left: 0; /* Remove the indent shift from previous version */
+        transform: none; /* No lift on touch typically */
+        box-shadow: none;
+
+        /* Mobile "Squircle" polished look */
+        border-radius: 12px;
     }
 }
