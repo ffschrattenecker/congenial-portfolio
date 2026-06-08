@@ -1,25 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" class="light">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-636Z389BF3"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-636Z389BF3');
-    </script>
-
     <title>ffschrattenecker</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-    <!-- Import Roboto Flex and Material Symbols -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
     <link rel="stylesheet" href="style.css" />
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
@@ -34,7 +22,6 @@
 </head>
 <body>
 
-    <!-- Artsy Abstract Background -->
     <div aria-hidden="true" class="abstract-bg">
         <div class="shape shape-blob shape-float"></div>
         <div class="shape shape-angle shape-float-alt"></div>
@@ -46,7 +33,6 @@
         <div class="noise"></div>
     </div>
 
-    <!-- TopNavBar -->
     <header class="header">
         <div class="header-logo">HOmepage</div>
         <nav class="header-nav">
@@ -56,26 +42,20 @@
             <a class="nav-link" href="#">About</a>
         </nav>
         <div class="header-actions">
-            <div class="search-container">
-                <input class="search-input" placeholder="Search entries..." type="text"/>
-            </div>
             <a href="mailto:info@ffschrattenecker.com" class="button-contact">Contact Me</a>
         </div>
     </header>
 
     <main class="main-content">
-        <!-- Hero Title -->
         <section class="hero-section">
-            <div id="magnetic-area" class="magnetic-area">
-                <h1 class="hero-title" id="magnetic-text">FFSCHRATTENECKER</h1>
-            </div>
-            <p class="hero-subtitle reveal">
+            <h1 class="hero-title">FFSCHRATTENECKER</h1>
+            
+            <p class="hero-subtitle">
                 A collection of random thoughts, documentation and my profile.<br/>Drink water!
             </p>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">FFschrattenecker</div>
@@ -108,56 +88,5 @@
         </div>
     </footer>
 
-    <script>
-        // Intersection Observer for Scroll Reveal
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-        // Magnetic Heading Effect
-        const magneticArea = document.getElementById('magnetic-area');
-        const magneticText = document.getElementById('magnetic-text');
-
-        if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches && magneticArea) {
-            document.addEventListener('mousemove', (e) => {
-                const rect = magneticArea.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-
-                const distanceX = e.clientX - centerX;
-                const distanceY = e.clientY - centerY;
-
-                // Influence radius (px)
-                const radius = 300;
-                const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-
-                if (distance < radius) {
-                    const power = (radius - distance) / radius; // 0 to 1
-                    const moveX = (distanceX * power) * 0.15; // Max 15% movement
-                    const moveY = (distanceY * power) * 0.15;
-
-                    magneticArea.style.transform = `translate(${moveX}px, ${moveY}px)`;
-                } else {
-                    magneticArea.style.transform = `translate(0, 0)`;
-                }
-            });
-
-            // Reset when mouse leaves window or moves far away
-            document.addEventListener('mouseleave', () => {
-                magneticArea.style.transform = `translate(0, 0)`;
-            });
-        }
-    </script>
 </body>
 </html>
